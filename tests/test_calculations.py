@@ -3,10 +3,8 @@ from typing import List
 import numpy as np
 from datetime import datetime as dt
 # local modules
-from config.constants import (
-    physical_constants,
-    physical_deafult_params,
-)
+from config.constants import physical_constants
+from config.defaults import physical_deafult_params
 from calculations.vel_calc import PipeVelocity
 from calculations.area_calc import get_piston_areas_ratio
 from calculations.utils import get_reynold_number

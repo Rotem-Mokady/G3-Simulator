@@ -4,8 +4,8 @@ from copy import deepcopy
 # local modules
 from config.constants import (
     physical_constants,
-    physical_deafult_params,
 )
+from config.defaults import physical_deafult_params
 from calculations.area_calc import get_piston_areas_ratio
 
 

@@ -2,7 +2,7 @@ from typing import Union
 import numpy as np
 import math
 # local modules
-from config.constants import physical_deafult_params
+from config.defaults import physical_deafult_params
 from calculations.utils import get_reynold_number
 
 
