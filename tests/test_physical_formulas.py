@@ -1,20 +1,21 @@
 import unittest
 from typing import List
+from numbers import Number
 import numpy as np
 import math
 from datetime import datetime as dt
 # local modules
 from config.constants import physical_constants
 from config.defaults import physical_deafult_params
-from calculations.vel_calc import (
+from physical_formulas.vel_calc import (
     PipeVelocity,
     get_flow,
 )
-from calculations.area_calc import get_piston_areas_ratio
-from calculations.utils import get_reynold_number
-from calculations.friction_calc import get_dynamic_friction_coefficient
-from calculations.height_calc import get_height_per_length
-from calculations.resistence_calc import get_tdh
+from physical_formulas.area_calc import get_piston_areas_ratio
+from physical_formulas.utils import get_reynold_number
+from physical_formulas.friction_calc import get_dynamic_friction_coefficient
+from physical_formulas.height_calc import get_height_per_length
+from physical_formulas.resistence_calc import get_tdh
 
 
 NUMBERS_TYPES = [int, float, np.int, np.int32, np.int64, np.float, np.float32, np.float64]
@@ -34,7 +35,7 @@ class TestCalc(unittest.TestCase):
         self.assertIsInstance(results_1, List)
         # make sure that there are only numbers in the list and all of them are equal or greater then zero
         for _ in results_1:
-            self.assertIn(type(_), NUMBERS_TYPES)
+            self.assertIsInstance(_, Number)
             self.assertGreaterEqual(_, 0)
 
         # examine results for "up" input
@@ -47,7 +48,7 @@ class TestCalc(unittest.TestCase):
         self.assertIsInstance(results_2, List)
         # make sure that there are only numbers in the list and all of them are equal or greater then zero
         for _ in results_2:
-            self.assertIn(type(_), NUMBERS_TYPES)
+            self.assertIsInstance(_, Number)
             self.assertGreaterEqual(_, 0)
 
         # "down" and "up" should always be the same
@@ -59,7 +60,7 @@ class TestCalc(unittest.TestCase):
             self.assertRaises(ValueError, PipeVelocity(movement_direction=_).get_pipe_velocities)
 
         # incorrect pipe radius should raise a TypeError
-        wrong_radius_inputs = ["Hello World!", {0, 0, 0}, lambda x: x + 1, TypeError, dt.utcnow()]
+        wrong_radius_inputs = ["Hello World!", {0, 0, 0}, lambda x: x + 1, TypeError, dt.utcnow(), [1, 2, 3]]
         for _ in wrong_radius_inputs:
             self.assertRaises(ValueError, PipeVelocity(pipe_radius=_).get_pipe_velocities)
 
@@ -72,7 +73,7 @@ class TestCalc(unittest.TestCase):
                                    physical_constants.PushRod.RADIUS_METERS**2
                            ) / physical_constants.Piston.RADIUS_METERS**2
         self.assertEqual(results, no_numpy_results)
-        self.assertIn(type(results), NUMBERS_TYPES)
+        self.assertIsInstance(results, Number)
         self.assertGreaterEqual(results, 0)
 
     def test_reynold_number(self) -> None:
@@ -90,7 +91,7 @@ class TestCalc(unittest.TestCase):
         # the results itself
         results = get_reynold_number(good_diameter, good_velocity)
         self.assertEqual(results, (good_diameter * good_velocity) / physical_constants.Water.NI)
-        self.assertIn(type(results), NUMBERS_TYPES)
+        self.assertIsInstance(results, Number)
         self.assertGreaterEqual(results, 0)
 
     def test_dynamic_friction_coefficient(self) -> None:
@@ -99,7 +100,7 @@ class TestCalc(unittest.TestCase):
         good_diameter = 2
         bad_diameter = {'b'}
         good_velocity = 0.00000003
-        bad_velocity = (50, ['c'], 70)
+        bad_velocity = (50, 60, 70)
         good_pipe_types = list(physical_deafult_params.Pipe.TYPES_TO_E.keys())
         bad_pipe_types = ["Rotem", "Amit", "Ohad"]
 
@@ -109,14 +110,14 @@ class TestCalc(unittest.TestCase):
             self.assertRaises(TypeError, get_dynamic_friction_coefficient, good_diameter, bad_velocity, pipe)
             self.assertRaises(TypeError, get_dynamic_friction_coefficient, bad_diameter, bad_velocity, pipe)
 
-        # make sure that we will get a value error if the pipe are not exist
+        # make sure that we will get a value error if the pipe is not exist
         for pipe in bad_pipe_types:
             self.assertRaises(ValueError, get_dynamic_friction_coefficient, good_diameter, good_velocity, pipe)
 
         # make sure that the output is in the right type for all the relevant pipe types
         for pipe in good_pipe_types:
             results = get_dynamic_friction_coefficient(good_diameter, good_velocity, pipe)
-            self.assertIn(type(results), NUMBERS_TYPES)
+            self.assertIsInstance(results, Number)
             self.assertGreaterEqual(results, 0)
 
     def test_get_height_per_length(self) -> None:
@@ -124,7 +125,7 @@ class TestCalc(unittest.TestCase):
         good_diameter = 0.05549523
         bad_diameter = {'b': 12}
         good_velocity = 100000
-        bad_velocity = [-1, dt.utcnow(), dt.now()]
+        bad_velocity = [-1, -2, -3]
         good_pipe_types = list(physical_deafult_params.Pipe.TYPES_TO_E.keys())
         bad_pipe_types = [1, 2, 4]
 
@@ -134,7 +135,7 @@ class TestCalc(unittest.TestCase):
             self.assertRaises(TypeError, get_height_per_length, good_diameter, bad_velocity, pipe)
             self.assertRaises(TypeError, get_height_per_length, bad_diameter, bad_velocity, pipe)
 
-        # make sure that we will get a value error if the pipe are not exist
+        # make sure that we will get a value error if the pipe is not exist
         for pipe in bad_pipe_types:
             self.assertRaises(ValueError, get_height_per_length, good_diameter, good_velocity, pipe)
 
@@ -142,7 +143,7 @@ class TestCalc(unittest.TestCase):
         for pipe in good_pipe_types:
             results = get_height_per_length(good_diameter, good_velocity, pipe)
 
-            self.assertIn(type(results), NUMBERS_TYPES)
+            self.assertIsInstance(results, Number)
             self.assertGreaterEqual(results, 0)
             self.assertAlmostEqual(
                 results,
@@ -157,7 +158,7 @@ class TestCalc(unittest.TestCase):
 
         # define the different inputs
         good_height = 80
-        bad_height = {}
+        bad_height = np.array([70, 80, 90])
         good_diameter = 5
         bad_diameter = "---"
         good_velocity = 2
@@ -175,7 +176,7 @@ class TestCalc(unittest.TestCase):
             self.assertRaises(TypeError, get_tdh, good_height, bad_diameter, bad_velocity, pipe)
             self.assertRaises(TypeError, get_tdh, bad_height, bad_diameter, bad_velocity, pipe)
 
-        # make sure that we will get a value error if the pipe are not exist
+        # make sure that we will get a value error if the pipe is not exist
         for pipe in bad_pipe_types:
             self.assertRaises(ValueError, get_tdh, good_height, good_diameter, good_velocity, pipe)
 
@@ -183,7 +184,7 @@ class TestCalc(unittest.TestCase):
         for pipe in good_pipe_types:
             results = get_tdh(good_height, good_diameter, good_velocity, pipe)
 
-            self.assertIn(type(results), NUMBERS_TYPES)
+            self.assertIsInstance(results, Number)
             self.assertGreaterEqual(results, 0)
             self.assertAlmostEqual(
                 results,
@@ -200,7 +201,7 @@ class TestCalc(unittest.TestCase):
         good_radius = 0
         bad_radius = map(lambda x: x, [1, "A", "a"])
         good_velocity = 0.00001
-        bad_velocity = "^"
+        bad_velocity = np.array([-1, -2, -3])
 
         # make sure that TypeError will be raised when one argument or more is incorrect
         self.assertRaises(TypeError, get_flow, bad_radius, good_velocity)
@@ -211,7 +212,7 @@ class TestCalc(unittest.TestCase):
         radius = 1000
         velocity = 2000
         results = get_flow(radius, velocity)
-        self.assertIn(type(results), NUMBERS_TYPES)
+        self.assertIsInstance(results, Number)
         self.assertGreaterEqual(results, 0)
         self.assertAlmostEqual(
             results,
@@ -221,7 +222,3 @@ class TestCalc(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-
-
-
