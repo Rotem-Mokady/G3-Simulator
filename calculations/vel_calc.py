@@ -4,6 +4,7 @@ from copy import deepcopy
 # local modules
 from config.constants import (
     physical_constants,
+    math_constants,
 )
 from config.defaults import physical_deafult_params
 from calculations.area_calc import get_piston_areas_ratio
@@ -13,12 +14,14 @@ class PipeVelocity:
 
     def __init__(
             self,
-            movement_direction: str = "down"
+            movement_direction: str = "down",
+            pipe_radius: Union[int, float] = physical_constants.Pipe.RADIUS_METERS,
     ) -> None:
         """
         Define a few relevant variables.
         """
         self._movement_direction = movement_direction
+        self._pipe_radius = pipe_radius
         self._piston_area_ratio = get_piston_areas_ratio()  # calculation of Piston's areas ratio
         self._multiple_param = None
 
@@ -112,6 +115,26 @@ class PipeVelocity:
         """
         return self._multiple_param * current_piston_velocity * np.square(
             physical_constants.Piston.RADIUS_METERS /
-            physical_constants.Pipe.RADIUS_METERS
+            self._pipe_radius_checker
         )
+
+    @property
+    def _pipe_radius_checker(self) -> Union[int, float, None]:
+        try:
+            assert isinstance(self._pipe_radius, (int, float))
+        except AssertionError:
+            raise ValueError("Radius pipe must be an integer")
+        return self._pipe_radius
+
+
+def get_flow(
+    radius: Union[int, float],
+    velocity: Union[int, float]
+) -> Union[int, float]:
+    """
+    :param radius: Int or float. Piston's radius.
+    :param velocity: Int or float. Piston's velocity.
+    :return: Int or float. The full energy.
+    """
+    return math_constants.PI * np.square(radius) * velocity
 
