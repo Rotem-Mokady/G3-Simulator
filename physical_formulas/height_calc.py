@@ -32,4 +32,10 @@ def get_height_per_length(
         np.square(velocity),
         diameter
     )
-    return f * g * v_d
+    return np.multiply(
+        np.multiply(
+            f,
+            g
+        )
+        , v_d
+    )

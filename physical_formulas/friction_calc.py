@@ -39,8 +39,14 @@ def get_dynamic_friction_coefficient(
         np.power(reynold_number, 0.9)
     )
 
-    return 0.25 / np.square(
-        math.log10(
-             left_side + right_side
+    return np.divide(
+        0.25,
+        np.square(
+            math.log10(
+                np.add(
+                    left_side,
+                    right_side
+                )
+            )
         )
     )

@@ -92,7 +92,10 @@ class PipeVelocity:
         :return: integer.
             Piston's current up velocity.
         """
-        return np.multiply(self._piston_area_ratio, current_piston_down_velocity)
+        return np.multiply(
+            self._piston_area_ratio,
+            current_piston_down_velocity
+        )
 
     def _get_pipe_velocities(
             self,
