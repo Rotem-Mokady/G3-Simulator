@@ -18,9 +18,6 @@ from physical_formulas.height_calc import get_height_per_length
 from physical_formulas.resistence_calc import get_tdh
 
 
-NUMBERS_TYPES = [int, float, np.int, np.int32, np.int64, np.float, np.float32, np.float64]
-
-
 class TestCalc(unittest.TestCase):
 
     def test_pipe_velocities(self) -> None:
