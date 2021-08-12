@@ -1,2 +1,3 @@
 \__pycache__
-\config\constants\physical_deafult_params.py
+\.pytest_cache
+__init__.py

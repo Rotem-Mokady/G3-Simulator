@@ -22,7 +22,6 @@ class PipeVelocity:
         self._piston_area_ratio = get_piston_areas_ratio()  # calculation of Piston's areas ratio
         self._multiple_param = None
 
-    @property
     def get_pipe_velocities(self) -> Union[List[int], List[float]]:
         """
         The main method of the class.

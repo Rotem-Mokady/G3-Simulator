@@ -14,5 +14,3 @@ def get_reynold_number(
     """
     return (diameter * velocity) / physical_constants.Water.NI
 
-
-
