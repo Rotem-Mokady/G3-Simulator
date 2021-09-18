@@ -2,9 +2,9 @@ from numbers import Number
 import pandas as pd
 from copy import deepcopy
 # local modules
-from simulation_configs.calc_constants import physical_constants
-from simulation_configs.calc_constants.default_varibles import physical_deafult_params
-from simulation_configs.operational_tables import TDHbyFlowNames
+from configs.calc_constants import physical_constants
+from configs.calc_constants.default_varibles import physical_deafult_params
+from configs.operational_tables import TDHbyFlowNames
 from physical_formulas.vel_calc import (
     PipeVelocity,
     get_flow,

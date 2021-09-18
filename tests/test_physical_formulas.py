@@ -5,8 +5,8 @@ import numpy as np
 import math
 from datetime import datetime as dt
 # local modules
-from simulation_configs.calc_constants import physical_constants
-from simulation_configs.calc_constants.default_varibles import physical_deafult_params
+from configs.calc_constants import physical_constants
+from configs.calc_constants.default_varibles import physical_deafult_params
 from physical_formulas.vel_calc import (
     PipeVelocity,
     get_flow,
@@ -66,9 +66,9 @@ class TestCalc(unittest.TestCase):
         results = get_piston_areas_ratio()
         # calculate it with **2 instead of numpy.square built in function
         no_numpy_results = (
-                                   physical_constants.Piston.RADIUS_METERS**2 -
-                                   physical_constants.PushRod.RADIUS_METERS**2
-                           ) / physical_constants.Piston.RADIUS_METERS**2
+                                   physical_constants.Piston.RADIUS_METERS ** 2 -
+                                   physical_constants.PushRod.RADIUS_METERS ** 2
+                           ) / physical_constants.Piston.RADIUS_METERS ** 2
         self.assertEqual(results, no_numpy_results)
         self.assertIsInstance(results, Number)
         self.assertGreaterEqual(results, 0)

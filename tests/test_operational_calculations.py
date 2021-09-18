@@ -2,7 +2,7 @@ import unittest
 import pandas as pd
 from numbers import Number
 # local modules
-from simulation_configs.calc_constants.default_varibles import physical_deafult_params
+from configs.calc_constants.default_varibles import physical_deafult_params
 from operational_calculations.tdh_by_flow import get_tdh_by_flow
 
 

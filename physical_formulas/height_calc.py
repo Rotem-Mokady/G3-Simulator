@@ -1,7 +1,7 @@
 from numbers import Number
 import numpy as np
 # local modules
-from simulation_configs.calc_constants.physical_constants import Earth
+from configs.calc_constants.physical_constants import Earth
 from physical_formulas.friction_calc import get_dynamic_friction_coefficient
 
 

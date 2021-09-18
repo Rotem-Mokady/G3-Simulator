@@ -2,7 +2,7 @@ from numbers import Number
 import numpy as np
 import math
 # local modules
-from simulation_configs.calc_constants.default_varibles import physical_deafult_params
+from configs.calc_constants.default_varibles import physical_deafult_params
 from physical_formulas.utils import get_reynold_number
 
 

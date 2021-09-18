@@ -3,11 +3,8 @@ from numbers import Number
 import numpy as np
 from copy import deepcopy
 # local modules
-from simulation_configs.calc_constants import (
-    physical_constants,
-    math_constants,
-)
-from simulation_configs.calc_constants.default_varibles import physical_deafult_params
+from configs.calc_constants import physical_constants, math_constants
+from configs.calc_constants.default_varibles import physical_deafult_params
 from physical_formulas.area_calc import get_piston_areas_ratio
 
 
