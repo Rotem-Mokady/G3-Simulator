@@ -2,8 +2,8 @@ import unittest
 import pandas as pd
 from numbers import Number
 # local modules
-from config.defaults import physical_deafult_params
-from config import operational
+from simulation_configs.calc_constants.default_varibles import physical_deafult_params
+from simulation_configs import operational_constants
 from operational_calculations.tdh_by_flow import get_tdh_by_flow
 
 
@@ -35,16 +35,16 @@ class TestCalc(unittest.TestCase):
             results = get_tdh_by_flow(good_height, good_diameter, pipe)
             # correct types
             self.assertIsInstance(results, pd.DataFrame)
-            for _ in results[operational.tables.TDHbyFlowNames.FLOW_COLUMN_NAME]:
+            for _ in results[operational_constants.tables.TDHbyFlowNames.FLOW_COLUMN_NAME]:
                 self.assertIsInstance(_, Number)
-            for _ in results[operational.tables.TDHbyFlowNames.TDH_COLUMN_NAME]:
+            for _ in results[operational_constants.tables.TDHbyFlowNames.TDH_COLUMN_NAME]:
                 self.assertIsInstance(_, Number)
             # correct columns
             self.assertCountEqual(
                 results.columns.tolist(),
                 [
-                    operational.tables.TDHbyFlowNames.FLOW_COLUMN_NAME,
-                    operational.tables.TDHbyFlowNames.TDH_COLUMN_NAME
+                    operational_constants.tables.TDHbyFlowNames.FLOW_COLUMN_NAME,
+                    operational_constants.tables.TDHbyFlowNames.TDH_COLUMN_NAME
                 ])
             # correct size
             self.assertEqual(

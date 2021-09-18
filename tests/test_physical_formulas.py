@@ -5,8 +5,8 @@ import numpy as np
 import math
 from datetime import datetime as dt
 # local modules
-from config.constants import physical_constants
-from config.defaults import physical_deafult_params
+from simulation_configs.calc_constants import physical_constants
+from simulation_configs.calc_constants.default_varibles import physical_deafult_params
 from physical_formulas.vel_calc import (
     PipeVelocity,
     get_flow,

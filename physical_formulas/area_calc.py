@@ -1,7 +1,7 @@
 from numbers import Number
 import numpy as np
 # local modules
-from config.constants import physical_constants
+from simulation_configs.calc_constants import physical_constants
 
 
 def get_piston_areas_ratio() -> Number:
