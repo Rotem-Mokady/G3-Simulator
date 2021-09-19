@@ -17,6 +17,18 @@ HOME_PAGE_INSTRUCTIONS_STYLE = {
 }
 HOME_PAGE_DROPDOWN_STYLE = {
     "textAlign": "center",
-    "width": "50%",
+    "width": "40%",
     "margin": "auto",
 }
+BUTTONS_STYLE = {
+    "textAlign": "center",
+    "margin": "auto",
+    "display": "block",
+    "width": "50%",
+}
+TDH_BY_FLOW_DROPDOWN_STYLE = {
+    "textAlign": "center",
+    "width": "75%",
+    "margin": "auto",
+}
+HIDE_STYLE = {"display": "none"}
