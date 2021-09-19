@@ -26,9 +26,13 @@ BUTTONS_STYLE = {
     "display": "block",
     "width": "50%",
 }
+ACTIVATION_BUTTONS_STYLE = {
+    "background-color": "#555555",
+    "padding": "8px 16px",
+}
 TDH_BY_FLOW_DROPDOWN_STYLE = {
     "textAlign": "center",
-    "width": "75%",
+    "width": "72%",
     "margin": "auto",
 }
 HIDE_STYLE = {"display": "none"}
