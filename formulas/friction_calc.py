@@ -2,8 +2,8 @@ from numbers import Number
 import numpy as np
 import math
 # local modules
-from configs.calc_constants.default_varibles import physical_deafult_params
-from physical_formulas.utils import get_reynold_number
+from configs.calcs.defaults import physical_deafult_params
+from formulas.utils import get_reynold_number
 
 
 def get_dynamic_friction_coefficient(

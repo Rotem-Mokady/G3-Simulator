@@ -2,15 +2,15 @@ from numbers import Number
 import pandas as pd
 from copy import deepcopy
 # local modules
-from configs.calc_constants import physical_constants
-from configs.calc_constants.default_varibles import physical_deafult_params
-from configs.operational_tables import TDHbyFlowNames
-from physical_formulas.vel_calc import (
+from configs.calcs.constants import physical_constants
+from configs.calcs.defaults import physical_deafult_params
+from configs.operationals.tables import TDHbyFlowNames
+from formulas.vel_calc import (
     PipeVelocity,
     get_flow,
 )
-from physical_formulas.resistence_calc import get_tdh
-from physical_formulas.utils import (
+from formulas.resistence_calc import get_tdh
+from formulas.utils import (
     diameter2radius,
     millimeters2meters,
 )

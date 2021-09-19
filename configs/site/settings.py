@@ -1,1 +1,0 @@
-BROWSER_WINDOW_NAME = "G3 Simulator"

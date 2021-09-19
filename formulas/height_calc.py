@@ -1,8 +1,8 @@
 from numbers import Number
 import numpy as np
 # local modules
-from configs.calc_constants.physical_constants import Earth
-from physical_formulas.friction_calc import get_dynamic_friction_coefficient
+from configs.calcs.constants.physical_constants import Earth
+from formulas.friction_calc import get_dynamic_friction_coefficient
 
 
 def get_height_per_length(

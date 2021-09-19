@@ -1,11 +1,9 @@
-from dash import (
-    Dash,
-    html,
-)
-from configs.site.settings import BROWSER_WINDOW_NAME
+from app import create_app
+from configs.dash import settings
 
 
-app = Dash(BROWSER_WINDOW_NAME)
-app.layout = html.Div(style={
-    'background-image': 'url("diginex.png")',
-})
+app = create_app()
+
+if __name__ == '__main__':
+    app.run_server(host=settings.HOST, port=settings.PORT)
+
