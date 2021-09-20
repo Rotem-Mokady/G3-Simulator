@@ -151,6 +151,8 @@ def components_tdh_by_flow(app: Dash) -> None:
             xaxis_title=TDHbyFlowNames.FLOW_COLUMN_NAME,
             yaxis_title=TDHbyFlowNames.TDH_COLUMN_NAME
         )
+        fig.layout.plot_bgcolor = modules_constants.TDHbyFlow.Graph.SQUARE_BACKGROUND_COLOR
+        fig.layout.paper_bgcolor = modules_constants.TDHbyFlow.Graph.BORDER_BACKGROUND_COLOR
         return fig
 
 
