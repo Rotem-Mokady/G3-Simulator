@@ -55,7 +55,7 @@ TDH_BY_FLOW = [
 ]
 
 
-HOME_PAGE = [
+FINAL_LAYOUT = [
     html.H1(children=titles.HOME_PAGE_TITLE, style=styles.HOME_PAGE_TITLE_STYLE),
     html.H2(children=titles.HOME_PAGE_SUBTITLE, style=styles.HOME_PAGE_SUBTITLE_STYLE),
     html.H3(children=titles.HOME_PAGE_INSTRUCTIONS, style=styles.HOME_PAGE_INSTRUCTIONS_STYLE),

@@ -15,12 +15,12 @@ import plotly.graph_objects as go
 from configs.calcs.constants import physical_constants
 from configs.calcs.defaults import physical_deafult_params
 from configs.operationals.tables import TDHbyFlowNames
-from formulas.vel_calc import (
+from physical_formulas.vel_calc import (
     PipeVelocity,
     get_flow,
 )
-from formulas.resistence_calc import get_tdh
-from formulas.utils import (
+from physical_formulas.resistence_calc import get_tdh
+from physical_formulas.utils import (
     diameter2radius,
     millimeters2meters,
 )
@@ -134,7 +134,7 @@ def components_tdh_by_flow(app: Dash) -> None:
     ) -> go.Figure:
         try:
             df = calculate_tdh_by_flow(height_meters=height, pipe_diameter_millimeters=diameter, pipe_type=pipe_type)
-        except TypeError:
+        except (TypeError, ValueError):
             return go.Figure()
         fig = go.Figure(
             go.Scatter(

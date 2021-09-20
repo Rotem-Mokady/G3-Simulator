@@ -1,7 +1,7 @@
 from numbers import Number
 import numpy as np
 # local modules
-from formulas.height_calc import get_height_per_length
+from physical_formulas.height_calc import get_height_per_length
 
 
 def get_tdh(

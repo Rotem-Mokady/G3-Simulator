@@ -4,7 +4,7 @@ from numbers import Number
 # local modules
 from configs.calcs.defaults import physical_deafult_params
 from configs.operationals.tables import TDHbyFlowNames
-from app.tdh_by_flow import get_tdh_by_flow
+from app.modules.tdh_by_flow import calculate_tdh_by_flow
 
 
 class TestCalc(unittest.TestCase):
@@ -21,18 +21,18 @@ class TestCalc(unittest.TestCase):
 
         # make sure that we will get a TypeError if the height or the diameter are not fixed
         for pipe in good_pipe_types:
-            self.assertRaises(TypeError, get_tdh_by_flow, bad_height, good_diameter, pipe)
-            self.assertRaises(TypeError, get_tdh_by_flow, good_height, bad_diameter, pipe)
-            self.assertRaises(TypeError, get_tdh_by_flow, bad_height, bad_diameter, pipe)
+            self.assertRaises(TypeError, calculate_tdh_by_flow, bad_height, good_diameter, pipe)
+            self.assertRaises(TypeError, calculate_tdh_by_flow, good_height, bad_diameter, pipe)
+            self.assertRaises(TypeError, calculate_tdh_by_flow, bad_height, bad_diameter, pipe)
 
         # make sure that we will get a value error if the pipe is not exist
         for pipe in bad_pipe_types:
-            self.assertRaises(ValueError, get_tdh_by_flow, good_height, good_diameter, pipe)
+            self.assertRaises(ValueError, calculate_tdh_by_flow, good_height, good_diameter, pipe)
 
         # make sure that the output is in the right format
         for pipe in good_pipe_types:
             # the results itself
-            results = get_tdh_by_flow(good_height, good_diameter, pipe)
+            results = calculate_tdh_by_flow(good_height, good_diameter, pipe)
             # correct types
             self.assertIsInstance(results, pd.DataFrame)
             for _ in results[TDHbyFlowNames.FLOW_COLUMN_NAME]:

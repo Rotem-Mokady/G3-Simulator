@@ -7,15 +7,15 @@ from datetime import datetime as dt
 # local modules
 from configs.calcs.constants import physical_constants
 from configs.calcs.defaults import physical_deafult_params
-from formulas.vel_calc import (
+from physical_formulas.vel_calc import (
     PipeVelocity,
     get_flow,
 )
-from formulas.area_calc import get_piston_areas_ratio
-from formulas.utils import get_reynold_number
-from formulas.friction_calc import get_dynamic_friction_coefficient
-from formulas.height_calc import get_height_per_length
-from formulas.resistence_calc import get_tdh
+from physical_formulas.area_calc import get_piston_areas_ratio
+from physical_formulas.utils import get_reynold_number
+from physical_formulas.friction_calc import get_dynamic_friction_coefficient
+from physical_formulas.height_calc import get_height_per_length
+from physical_formulas.resistence_calc import get_tdh
 
 
 class TestCalc(unittest.TestCase):
