@@ -1,7 +1,7 @@
 class TDHbyFlow:
     ID = "tdh-by-flow-inputs"
 
-    class Pipe:
+    class PipeHeight:
         ID = "tdh-by-flow-pipe"
         AUTO_COMPLETE = "missing value in Pipe Height"
         MODE = "numeric"
@@ -10,7 +10,7 @@ class TDHbyFlow:
         NAME = "Pipe Height (meters)"
         TYPE = "number"
 
-    class Diameter:
+    class PipeDiameter:
         ID = "tdh-by-flow-diameter"
         AUTO_COMPLETE = "missing value in Diameter Height"
         MODE = "numeric"
@@ -24,10 +24,6 @@ class TDHbyFlow:
         AUTO_COMPLETE = "missing value in Pipe Type"
         NAME = 'Pipe Type'
         SEARCHABLE = False
-
-    class ActivateButton:
-        ID = "tdh-by-flow-activate"
-        NAME = "Calculate TDH By Flow"
 
     class Graph:
         ID = "tdh-by-flow-graph"

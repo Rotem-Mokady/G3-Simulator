@@ -2,6 +2,7 @@ from numbers import Number
 from typing import (
     Union,
     Dict,
+    Tuple,
 )
 import pandas as pd
 from copy import deepcopy
@@ -95,28 +96,58 @@ def components_tdh_by_flow(app: Dash) -> None:
             return styles.HIDE_STYLE
 
     @app.callback(
-        Output(component_id=modules_constants.TDHbyFlow.ActivateButton.ID, component_property=properties.STYLE_PROPERTY),
-        [Input(component_id=modules_constants.TDHbyFlow.Pipe.ID, component_property=properties.VALUE_PROPERTY),
-         Input(component_id=modules_constants.TDHbyFlow.Diameter.ID, component_property=properties.VALUE_PROPERTY),
+        Output(component_id=modules_constants.TDHbyFlow.Graph.ID, component_property=properties.STYLE_PROPERTY),
+        [Input(component_id=modules_constants.TDHbyFlow.PipeHeight.ID, component_property=properties.VALUE_PROPERTY),
+         Input(component_id=modules_constants.TDHbyFlow.PipeDiameter.ID, component_property=properties.VALUE_PROPERTY),
          Input(component_id=modules_constants.TDHbyFlow.PipeType.ID, component_property=properties.VALUE_PROPERTY)]
     )
-    def activate(pipe: Union[str, Number], diameter: Union[str, Number], pipe_type: str) -> Dict:
+    def activate(
+            height: Union[str, Number],
+            diameter: Union[str, Number],
+            pipe_type: str
+    ) -> Dict:
         if (
-            pipe == modules_constants.TDHbyFlow.Pipe.AUTO_COMPLETE or
-            diameter == modules_constants.TDHbyFlow.Diameter.AUTO_COMPLETE or
+            # all the three values should not be empty or deleted
+            height == modules_constants.TDHbyFlow.PipeHeight.AUTO_COMPLETE or
+            diameter == modules_constants.TDHbyFlow.PipeDiameter.AUTO_COMPLETE or
             pipe_type == modules_constants.TDHbyFlow.PipeType.AUTO_COMPLETE or
-            None in [pipe, diameter, pipe_type]
+            None in [height, diameter, pipe_type] or
+            # all the three should be at the right format
+            not isinstance(height, (int, float)) or
+            not isinstance(diameter, (int, float)) or
+            not isinstance(pipe_type, str) or
+            # numeric values should not be equal to zero
+            not height or
+            not diameter
         ):
             return styles.HIDE_STYLE
-        else:
-            return styles.ACTIVATION_BUTTONS_STYLE
 
     @app.callback(
         Output(component_id=modules_constants.TDHbyFlow.Graph.ID, component_property=properties.FIG_PROPERTY),
-        Output(component_id=modules_constants.TDHbyFlow.Graph.ID, component_property=properties.STYLE_PROPERTY),
-        [Input(component_id=modules_constants.TDHbyFlow.ActivateButton.ID, component_property=properties.CLICK_PROPERTY)]
+        [Input(component_id=modules_constants.TDHbyFlow.PipeHeight.ID, component_property=properties.VALUE_PROPERTY),
+         Input(component_id=modules_constants.TDHbyFlow.PipeDiameter.ID, component_property=properties.VALUE_PROPERTY),
+         Input(component_id=modules_constants.TDHbyFlow.PipeType.ID, component_property=properties.VALUE_PROPERTY)]
     )
-    def calc(n_clicks: Number):
-        return None, styles.HIDE_STYLE
-        # if not n_clicks:
-        #     return None, styles.HIDE_STYLE
+    def graph_update(
+            height: Union[str, Number],
+            diameter: Union[str, Number],
+            pipe_type: str
+    ) -> Union[go.Figure, None]:
+        try:
+            df = calculate_tdh_by_flow(height_meters=height, pipe_diameter_millimeters=diameter, pipe_type=pipe_type)
+        except TypeError:
+            return
+        fig = go.Figure(
+            go.Scatter(
+                x=df[TDHbyFlowNames.FLOW_COLUMN_NAME],
+                y=df[TDHbyFlowNames.TDH_COLUMN_NAME],
+                line=dict(color='firebrick', width=4)
+            )
+        )
+        fig.update_layout(title='Stock prices over time',
+                          xaxis_title='Dates',
+                          yaxis_title='Prices'
+                          )
+        return fig
+
+

@@ -17,24 +17,24 @@ TDH_BY_FLOW = [
         children=[
             html.Br(),
             dcc.Input(
-                id=modules_constants.TDHbyFlow.Pipe.ID,
-                autoComplete=modules_constants.TDHbyFlow.Pipe.AUTO_COMPLETE,
-                inputMode=modules_constants.TDHbyFlow.Pipe.MODE,
-                min=modules_constants.TDHbyFlow.Pipe.MIN,
-                value=modules_constants.TDHbyFlow.Pipe.AUTO_COMPLETE,
-                placeholder=modules_constants.TDHbyFlow.Pipe.NAME,
-                type=modules_constants.TDHbyFlow.Pipe.TYPE,
+                id=modules_constants.TDHbyFlow.PipeHeight.ID,
+                autoComplete=modules_constants.TDHbyFlow.PipeHeight.AUTO_COMPLETE,
+                inputMode=modules_constants.TDHbyFlow.PipeHeight.MODE,
+                min=modules_constants.TDHbyFlow.PipeHeight.MIN,
+                value=modules_constants.TDHbyFlow.PipeHeight.AUTO_COMPLETE,
+                placeholder=modules_constants.TDHbyFlow.PipeHeight.NAME,
+                type=modules_constants.TDHbyFlow.PipeHeight.TYPE,
                 style=styles.BUTTONS_STYLE
             ),
             html.Br(),
             dcc.Input(
-                id=modules_constants.TDHbyFlow.Diameter.ID,
-                autoComplete=modules_constants.TDHbyFlow.Diameter.AUTO_COMPLETE,
-                inputMode=modules_constants.TDHbyFlow.Diameter.MODE,
-                min=modules_constants.TDHbyFlow.Diameter.MIN,
-                value=modules_constants.TDHbyFlow.Diameter.AUTO_COMPLETE,
-                placeholder=modules_constants.TDHbyFlow.Diameter.NAME,
-                type=modules_constants.TDHbyFlow.Diameter.TYPE,
+                id=modules_constants.TDHbyFlow.PipeDiameter.ID,
+                autoComplete=modules_constants.TDHbyFlow.PipeDiameter.AUTO_COMPLETE,
+                inputMode=modules_constants.TDHbyFlow.PipeDiameter.MODE,
+                min=modules_constants.TDHbyFlow.PipeDiameter.MIN,
+                value=modules_constants.TDHbyFlow.PipeDiameter.AUTO_COMPLETE,
+                placeholder=modules_constants.TDHbyFlow.PipeDiameter.NAME,
+                type=modules_constants.TDHbyFlow.PipeDiameter.TYPE,
                 style=styles.BUTTONS_STYLE
             ),
             html.Br(),
@@ -45,12 +45,6 @@ TDH_BY_FLOW = [
                 placeholder=modules_constants.TDHbyFlow.PipeType.NAME,
                 value=modules_constants.TDHbyFlow.PipeType.AUTO_COMPLETE,
                 style=styles.TDH_BY_FLOW_DROPDOWN_STYLE
-            ),
-            html.Br(),
-            html.Button(
-                modules_constants.TDHbyFlow.ActivateButton.NAME,
-                id=modules_constants.TDHbyFlow.ActivateButton.ID,
-                style=styles.ACTIVATION_BUTTONS_STYLE
             ),
             html.Br(),
             dcc.Graph(
