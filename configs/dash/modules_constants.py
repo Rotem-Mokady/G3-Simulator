@@ -27,3 +27,6 @@ class TDHbyFlow:
 
     class Graph:
         ID = "tdh-by-flow-graph"
+        TITLE = "Pipe height: {height}m, Pipe diameter: {diameter}mi, Pipe Type: \"{pipe_type}\"."
+        LINE_COLOR = "firebrick"
+        LINE_WIDTH = 4

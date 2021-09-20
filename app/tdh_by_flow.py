@@ -2,7 +2,6 @@ from numbers import Number
 from typing import (
     Union,
     Dict,
-    Tuple,
 )
 import pandas as pd
 from copy import deepcopy
@@ -132,22 +131,26 @@ def components_tdh_by_flow(app: Dash) -> None:
             height: Union[str, Number],
             diameter: Union[str, Number],
             pipe_type: str
-    ) -> Union[go.Figure, None]:
+    ) -> go.Figure:
         try:
             df = calculate_tdh_by_flow(height_meters=height, pipe_diameter_millimeters=diameter, pipe_type=pipe_type)
         except TypeError:
-            return
+            return go.Figure()
         fig = go.Figure(
             go.Scatter(
                 x=df[TDHbyFlowNames.FLOW_COLUMN_NAME],
                 y=df[TDHbyFlowNames.TDH_COLUMN_NAME],
-                line=dict(color='firebrick', width=4)
+                line=dict(
+                    color=modules_constants.TDHbyFlow.Graph.LINE_COLOR,
+                    width=modules_constants.TDHbyFlow.Graph.LINE_WIDTH
+                )
             )
         )
-        fig.update_layout(title='Stock prices over time',
-                          xaxis_title='Dates',
-                          yaxis_title='Prices'
-                          )
+        fig.update_layout(
+            title=modules_constants.TDHbyFlow.Graph.TITLE.format(height=height, diameter=diameter, pipe_type=pipe_type),
+            xaxis_title=TDHbyFlowNames.FLOW_COLUMN_NAME,
+            yaxis_title=TDHbyFlowNames.TDH_COLUMN_NAME
+        )
         return fig
 
 

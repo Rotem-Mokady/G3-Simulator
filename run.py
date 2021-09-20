@@ -12,5 +12,7 @@ def main():
 
 
 if __name__ == '__main__':
-    # app.run_server(host=settings.HOST, port=settings.PORT, threaded=settings.THREADED)
-    main()
+    app.run_server(host=settings.HOST, port=settings.PORT, threaded=settings.THREADED)
+    # app.run_server(port=settings.PORT, threaded=settings.THREADED)
+    # app.run_server(threaded=settings.THREADED)
+    # main()
