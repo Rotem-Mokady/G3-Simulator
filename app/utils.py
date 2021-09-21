@@ -18,7 +18,10 @@ import numpy as np
 from flask import Flask
 from dash import Dash
 # local modules
-from configs.dash import components
+from configs.dash import (
+    components,
+    settings,
+)
 
 
 def get_functions_list(file_module: ModuleType) -> Union[List, None]:
@@ -68,9 +71,9 @@ def add_modules_components(foo: FunctionType) -> Any:
         # run on the configured dir path
         for file in os.listdir(components.COMPONENTS_CURRENT_DIR):
             # filter only relevant python files
-            if file.endswith(components.PY_FILE_EXTENSION) and file not in components.IRRELEVANT_FILES:
+            if file.endswith(settings.PY_FILE_EXTENSION) and file not in components.IRRELEVANT_FILES:
 
-                filename_without_extension = file[:file.index(components.PY_FILE_EXTENSION)]
+                filename_without_extension = file[:file.index(settings.PY_FILE_EXTENSION)]
                 # import the module itself
                 try:
                     curr_module: ModuleType = import_module(
