@@ -27,7 +27,7 @@ from configs.dash import (
 def get_functions_list(file_module: ModuleType) -> Union[List, None]:
     """
     :param file_module: An object of python file ('.py' extension).
-    :return: List of function the defines in this module
+    :return: List of functions that define in this module.
     """
     # type checker
     if not isinstance(file_module, ModuleType):
@@ -39,19 +39,21 @@ def get_functions_list(file_module: ModuleType) -> Union[List, None]:
         return
     # extract any function's name from this file.
     # that extraction included sub-functions in any function or class in this file, and also functions that have been
-    # written as string, without actually define any method
-    defined_functions_from_text = np.array(list(map(
+    # written as a string, without actually define any method
+    defined_functions_from_text = list(map(
         lambda foo: foo.replace("def", "").replace("(", "").strip(),
         re.findall(re.compile(r"def\s+\w+\s{0,}\("), text)
-    )))
-    if not defined_functions_from_text.tolist():
+    ))
+    if not defined_functions_from_text:
         return
     # get a list of any defined or imported function in this module
     any_method_in_module = [foo[0] for foo in getmembers(file_module) if isfunction(foo[1])]
     if not any_method_in_module:
         return
     # cross the two lists and get a list of only outer functions in this module
-    functions_list = defined_functions_from_text[np.in1d(defined_functions_from_text, any_method_in_module)].tolist()
+    functions_list = np.array(defined_functions_from_text)[
+        np.in1d(defined_functions_from_text, any_method_in_module)
+    ].tolist()
     if not functions_list:
         return
     return functions_list

@@ -8,15 +8,17 @@ from configs.dash import (
     titles,
     tags,
     settings,
+    components,
 )
 from app.utils import add_modules_components
 
 
 @add_modules_components
 def create_app() -> Dash:
-    """
+    f"""
     Project's tests will run based on the configuration.
-    :return: An app object with the basic design and the modules components from the modules folder (app\\modules).
+    :return: An app object with the basic design and the modules components from the modules folder 
+    ({components.COMPONENTS_CURRENT_DIR}).
     """
     if settings.RUN_TESTS:
         os.system(settings.TESTS_COMMAND_LINE)

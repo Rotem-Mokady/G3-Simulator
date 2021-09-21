@@ -132,9 +132,7 @@ class PipeVelocity:
         """
         :return: Pipe's radius after type checking.
         """
-        try:
-            assert isinstance(self._pipe_radius, Number)
-        except AssertionError:
+        if not isinstance(self._pipe_radius, Number):
             raise ValueError("Radius pipe must be an integer")
         return self._pipe_radius
 

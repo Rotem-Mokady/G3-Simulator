@@ -88,7 +88,7 @@ def components_tdh_by_flow(app: Dash) -> None:
         Output(component_id=modules_constants.TDHbyFlow.ID, component_property=properties.STYLE_PROPERTY),
         [Input(component_id=main_dropdown.ID, component_property=main_dropdown.PROPERTY)]
     )
-    def show(value: str) -> Dict:
+    def show_tdh_by_flow(value: str) -> Dict:
         """
         :param value: A value from the main dropdown of the site.
         The function shows the TDH by Flow buttons only if the TDH by Flow button have been chosen.
@@ -105,7 +105,7 @@ def components_tdh_by_flow(app: Dash) -> None:
          Input(component_id=modules_constants.TDHbyFlow.PipeDiameter.ID, component_property=properties.VALUE_PROPERTY),
          Input(component_id=modules_constants.TDHbyFlow.PipeType.ID, component_property=properties.VALUE_PROPERTY)]
     )
-    def activate(
+    def activate_tdh_by_flow(
             height: Union[str, Number, None],
             diameter: Union[str, Number, None],
             pipe_type: Union[str, None]
@@ -140,7 +140,7 @@ def components_tdh_by_flow(app: Dash) -> None:
          Input(component_id=modules_constants.TDHbyFlow.PipeDiameter.ID, component_property=properties.VALUE_PROPERTY),
          Input(component_id=modules_constants.TDHbyFlow.PipeType.ID, component_property=properties.VALUE_PROPERTY)]
     )
-    def graph_update(
+    def graph_update_tdh_by_flow(
             height: Union[str, Number, None],
             diameter: Union[str, Number, None],
             pipe_type: Union[str, None]
