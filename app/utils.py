@@ -29,9 +29,14 @@ def get_functions_list(file_module: ModuleType) -> Union[List, None]:
     :param file_module: An object of python file ('.py' extension).
     :return: List of function the defines in this module
     """
+    # type checker
+    if not isinstance(file_module, ModuleType):
+        raise TypeError(f"file_module must be a module, got '{type(file_module).__name__}' instead")
     # read the file as text
     with open(file_module.__file__) as file:
         text = file.read()
+    if not text:
+        return
     # extract any function's name from this file.
     # that extraction included sub-functions in any function or class in this file, and also functions that have been
     # written as string, without actually define any method
@@ -39,7 +44,7 @@ def get_functions_list(file_module: ModuleType) -> Union[List, None]:
         lambda foo: foo.replace("def", "").replace("(", "").strip(),
         re.findall(re.compile(r"def\s+\w+\s{0,}\("), text)
     )))
-    if not defined_functions_from_text:
+    if not defined_functions_from_text.tolist():
         return
     # get a list of any defined or imported function in this module
     any_method_in_module = [foo[0] for foo in getmembers(file_module) if isfunction(foo[1])]
