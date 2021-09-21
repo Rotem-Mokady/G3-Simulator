@@ -35,4 +35,6 @@ TDH_BY_FLOW_DROPDOWN_STYLE = {
     "width": "72%",
     "margin": "auto",
 }
-HIDE_STYLE = {"display": "none"}
+HIDE_STYLE = {
+    "display": "none",
+}

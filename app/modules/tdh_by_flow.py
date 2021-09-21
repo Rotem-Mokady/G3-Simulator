@@ -80,7 +80,7 @@ def calculate_tdh_by_flow(
 
 def components_tdh_by_flow(app: Dash) -> None:
     """
-    :param app: The main Dash object of the site.
+    :param app: Dash. The main Dash object of the site.
     The function adds a few components that calculates the TDH by flow.
     :return: The server object itself.
     """
@@ -89,6 +89,11 @@ def components_tdh_by_flow(app: Dash) -> None:
         [Input(component_id=main_dropdown.ID, component_property=main_dropdown.PROPERTY)]
     )
     def show(value: str) -> Dict:
+        """
+        :param value: A value from the main dropdown of the site.
+        The function shows the TDH by Flow buttons only if the TDH by Flow button have been chosen.
+        :return: The style of the TDH by Flow input buttons.
+        """
         if value == modules_names.TDH_BY_FLOW:
             return styles.BUTTONS_STYLE
         else:
@@ -101,17 +106,25 @@ def components_tdh_by_flow(app: Dash) -> None:
          Input(component_id=modules_constants.TDHbyFlow.PipeType.ID, component_property=properties.VALUE_PROPERTY)]
     )
     def activate(
-            height: Union[str, Number],
-            diameter: Union[str, Number],
-            pipe_type: str
-    ) -> Dict:
+            height: Union[str, Number, None],
+            diameter: Union[str, Number, None],
+            pipe_type: Union[str, None]
+    ) -> Union[Dict, None]:
+        """
+        :param height: str, integer or None. User's input of distance between the machine and the ground.
+        :param diameter: str, integer or None. User's input of pipe's diameter in millimeters.
+        :param pipe_type: str or None. User's input of pipe type.
+        The function hides the graph object in any case that at least one of the inputs is incorrect.
+        :return: A style dict that hide the graph object, or None that let it be disclosure.
+        """
         if (
-            # all the three values should not be empty or deleted
+            # all the three values should not be empty
             height == modules_constants.TDHbyFlow.PipeHeight.AUTO_COMPLETE or
             diameter == modules_constants.TDHbyFlow.PipeDiameter.AUTO_COMPLETE or
             pipe_type == modules_constants.TDHbyFlow.PipeType.AUTO_COMPLETE or
+            # all the three values should not be deleted by the user
             None in [height, diameter, pipe_type] or
-            # all the three should be at the right format
+            # all the three should be at their right format
             not isinstance(height, (int, float)) or
             not isinstance(diameter, (int, float)) or
             not isinstance(pipe_type, str) or
@@ -128,14 +141,23 @@ def components_tdh_by_flow(app: Dash) -> None:
          Input(component_id=modules_constants.TDHbyFlow.PipeType.ID, component_property=properties.VALUE_PROPERTY)]
     )
     def graph_update(
-            height: Union[str, Number],
-            diameter: Union[str, Number],
-            pipe_type: str
+            height: Union[str, Number, None],
+            diameter: Union[str, Number, None],
+            pipe_type: Union[str, None]
     ) -> go.Figure:
+        """
+        :param height: str, integer or None. User's input of distance between the machine and the ground.
+        :param diameter: str, integer or None. User's input of pipe's diameter in millimeters.
+        :param pipe_type: str or None. User's input of pipe type.
+        :return: go.Figure. It returns a chart graph that based on the results of the TDH by Flow calculation above.
+        If the calculation is failed, it returns an empty chart.
+        """
+        # calculate the algorithm results
         try:
             df = calculate_tdh_by_flow(height_meters=height, pipe_diameter_millimeters=diameter, pipe_type=pipe_type)
         except (TypeError, ValueError):
             return go.Figure()
+        # create a color line chart according to the algorithm results
         fig = go.Figure(
             go.Scatter(
                 x=df[TDHbyFlowNames.FLOW_COLUMN_NAME],
@@ -146,13 +168,14 @@ def components_tdh_by_flow(app: Dash) -> None:
                 )
             )
         )
+        # add titles to the chart
         fig.update_layout(
             title=modules_constants.TDHbyFlow.Graph.TITLE.format(height=height, diameter=diameter, pipe_type=pipe_type),
             xaxis_title=TDHbyFlowNames.FLOW_COLUMN_NAME,
             yaxis_title=TDHbyFlowNames.TDH_COLUMN_NAME
         )
+        # add background colors to the chart
         fig.layout.plot_bgcolor = modules_constants.TDHbyFlow.Graph.SQUARE_BACKGROUND_COLOR
         fig.layout.paper_bgcolor = modules_constants.TDHbyFlow.Graph.BORDER_BACKGROUND_COLOR
         return fig
-
 

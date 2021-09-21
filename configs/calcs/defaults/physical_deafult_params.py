@@ -6,7 +6,7 @@ class Pipe:
     Long pipe outside of the machine itself, from the irrigation pipe on the ground to machine on underground.
     """
     TYPES_TO_E = {
-        "PVC, HOPE": 0.015 / 1000,
+        "PVC, HDPE": 0.015 / 1000,
         "NEW GI": 0.3 / 1000,
         "OLD GI": 3 / 1000,
     }

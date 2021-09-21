@@ -129,6 +129,9 @@ class PipeVelocity:
 
     @property
     def _pipe_radius_checker(self) -> Union[Number, None]:
+        """
+        :return: Pipe's radius after type checking.
+        """
         try:
             assert isinstance(self._pipe_radius, Number)
         except AssertionError:
