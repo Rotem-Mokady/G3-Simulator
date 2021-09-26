@@ -1,4 +1,3 @@
-import os
 from dash import (
     Dash,
     html,
@@ -7,7 +6,6 @@ from configs.dash import (
     styles,
     titles,
     tags,
-    settings,
     components,
 )
 from app.utils import add_modules_components
