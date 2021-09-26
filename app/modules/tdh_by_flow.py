@@ -15,12 +15,12 @@ import plotly.graph_objects as go
 from configs.calcs.constants import physical_constants
 from configs.calcs.defaults import physical_deafult_params
 from configs.operationals.tables import TDHbyFlowNames
-from physical_formulas.vel_calc import (
+from calculations.vel_calc import (
     PipeVelocity,
     get_flow,
 )
-from physical_formulas.resistence_calc import get_tdh
-from physical_formulas.utils import (
+from calculations.resistence_calc import get_tdh
+from calculations.utils import (
     diameter2radius,
     millimeters2meters,
 )

@@ -2,7 +2,7 @@ from numbers import Number
 import numpy as np
 # local modules
 from configs.calcs.constants.physical_constants import Earth
-from physical_formulas.friction_calc import get_dynamic_friction_coefficient
+from calculations.friction_calc import get_dynamic_friction_coefficient
 
 
 def get_height_per_length(

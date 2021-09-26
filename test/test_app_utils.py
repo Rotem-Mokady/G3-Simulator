@@ -2,7 +2,7 @@ import unittest
 from typing import List
 # local modules
 from app.utils import get_functions_list
-from physical_formulas import (
+from calculations import (
     vel_calc,
     utils,
     friction_calc,

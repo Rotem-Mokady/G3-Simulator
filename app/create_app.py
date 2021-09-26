@@ -20,8 +20,6 @@ def create_app() -> Dash:
     :return: An app object with the basic design and the modules components from the modules folder 
     ({components.COMPONENTS_CURRENT_DIR}).
     """
-    if settings.RUN_TESTS:
-        os.system(settings.TESTS_COMMAND_LINE)
     app = Dash()
     app.title = titles.TAB_WINDOW_NAME
     app.layout = html.Div(style=styles.BACKGROUND_STYLE, children=tags.FINAL_LAYOUT)

@@ -5,7 +5,7 @@ from copy import deepcopy
 # local modules
 from configs.calcs.constants import math_constants, physical_constants
 from configs.calcs.defaults import physical_deafult_params
-from physical_formulas.area_calc import get_piston_areas_ratio
+from calculations.area_calc import get_piston_areas_ratio
 
 
 class PipeVelocity:

@@ -5,7 +5,4 @@ THREADED = True
 PROJECT_NAME = "G3-Simulator"
 PY_FILE_EXTENSION = ".py"
 
-TESTS_COMMAND_LINE = "python -m unittest"
-RUN_TESTS = True
-
 
