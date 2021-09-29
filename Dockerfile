@@ -1,6 +1,7 @@
 FROM python:3.7
 # updates and pip installation
-RUN apt-get update -y && apt-get install -y python3-pip
+RUN apt-get update -y \
+    && apt-get install -y python3-pip
 # set a new current working directory
 WORKDIR /opt
 COPY . /opt
