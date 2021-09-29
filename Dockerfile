@@ -7,7 +7,7 @@ WORKDIR /opt
 COPY . /opt
 # install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
-# export app to the outside network
+# export app to host's network
 EXPOSE 5000
 # run webapp
 ENTRYPOINT ["python", "run.py"]
