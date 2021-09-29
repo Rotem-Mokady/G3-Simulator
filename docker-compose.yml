@@ -1,6 +1,8 @@
-version: 2
+version: '2'
 services:
-  g3-simulator-app:
-    build: .
-    ports:
-      - 5000:80
+    web:
+        build: .
+        ports:
+            - "5000:5000"
+        volumes:
+            - .:/opt

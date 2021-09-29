@@ -1,7 +1,6 @@
-###### Requirements without Version Specifiers ######`
+### packages with __version__ attribute ###
 numpy==1.18.1
 pandas==1.0.1
-dash==2.0.0
-re==2.2.1
 flask==1.1.2
+dash==2.0.0
 plotly==5.3.1

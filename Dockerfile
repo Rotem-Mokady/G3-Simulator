@@ -1,13 +1,12 @@
-# base image
-FROM python:3.7-alpine
+FROM python:3.7
+# updates and pip installation
+RUN apt-get update -y && apt-get install -y python3-pip
+# set a new current working directory
 WORKDIR /opt
 COPY . /opt
-# install all python libraries in the specific relevant versions
-RUN pip install -r requirements.txt
-# get general updates
-RUN ["apt-get", "update"]
-
-# run project tests
-RUN python -m unittest
-# run the web application
+# install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+# provide port to the outside network
+EXPOSE 5000
+# run app
 ENTRYPOINT ["python", "run.py"]
