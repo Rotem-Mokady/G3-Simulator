@@ -1,6 +1,6 @@
 version: '2'
 services:
-    app:
+    web:
         container_name: g3-simulator-webapp
         build: .
         ports:
