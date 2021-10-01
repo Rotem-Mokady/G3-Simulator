@@ -8,17 +8,20 @@ RUN apt-get update -y \
 WORKDIR /opt
 
 # add only relevant directories to Docker environment
-ADD app /opt/app
-ADD calculations /opt/calculations
-ADD configs /opt/configs
+ADD app ./app/
+ADD calculations ./calculations/
+ADD configs ./configs/
 
 # add only relevant files to Docker environment
-ADD run.py /opt
-ADD .gitignore /opt
-ADD requirements.txt /opt
+ADD run.py ./
+ADD .gitignore ./
+ADD requirements.txt ./
 
 # install version specifiers python packages
 RUN pip install --no-cache-dir -r requirements.txt
+
+# no more need for requirements after packages installation
+RUN rm -rf ./requirements.txt
 
 # export app to host's network
 # EXPOSE 5000
