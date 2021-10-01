@@ -1,8 +1,7 @@
-FROM python:3.7
+FROM mcr.microsoft.com/oryx/python-3.7:latest
 
-# general updates and pip installation
-RUN apt-get update -y \
-    && apt-get install -y python3-pip
+# general updates
+RUN apt-get update -y
 
 # set a new current working directory
 WORKDIR /opt
@@ -17,11 +16,9 @@ ADD run.py ./
 ADD .gitignore ./
 ADD requirements.txt ./
 
-# install version specifiers python packages
-RUN pip install --no-cache-dir -r requirements.txt
-
-# no more need for requirements after packages installation
-RUN rm -rf ./requirements.txt
+# install version specifiers python packages and then remove requirements
+RUN pip install --no-cache-dir -r requirements.txt \
+    && rm -rf ./requirements.txt
 
 # export app to host's network
 # EXPOSE 5000
