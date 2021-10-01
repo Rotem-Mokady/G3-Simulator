@@ -85,7 +85,7 @@ def add_modules_components(foo: FunctionType) -> Any:
                 try:
                     curr_module: ModuleType = import_module(
                         "{current_dir}.{filename}".format(
-                            current_dir=".".join(components.COMPONENTS_CURRENT_DIR.split("\\")),
+                            current_dir=".".join(components.COMPONENTS_CURRENT_DIR.split("//")),
                             filename=filename_without_extension
                         )
                     )

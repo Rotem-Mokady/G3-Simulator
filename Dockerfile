@@ -1,4 +1,4 @@
-FROM python:3.7-slim
+FROM python:3.7
 
 # general updates and pip installation
 RUN apt-get update -y \
@@ -21,7 +21,7 @@ ADD requirements.txt /opt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # export app to host's network
-EXPOSE 5000
+# EXPOSE 5000
 
 # run webapp
 ENTRYPOINT ["python", "run.py"]
