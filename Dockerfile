@@ -21,7 +21,7 @@ RUN pip install --no-cache-dir -r requirements.txt \
     && rm -rf ./requirements.txt
 
 # export app to host's network
-# EXPOSE 5000
+# EXPOSE 80
 
 # run webapp
 ENTRYPOINT ["python", "run.py"]
