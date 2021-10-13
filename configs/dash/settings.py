@@ -3,5 +3,5 @@ PORT = 80
 THREADED = True
 
 PY_FILE_EXTENSION = ".py"
-
+MAIN_DASH_METHOD_PREFIX = "components_"
 

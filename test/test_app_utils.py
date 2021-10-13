@@ -1,5 +1,7 @@
 import unittest
 from typing import List
+import os
+from importlib import import_module
 # local modules
 from app.utils import get_functions_list
 from calculations import (
@@ -9,7 +11,11 @@ from calculations import (
 )
 from app.modules import tdh_by_flow
 from configs.operationals import modules_names
-from configs.dash import styles
+from configs.dash import (
+    styles,
+    components,
+    settings,
+)
 from configs.calcs.constants import physical_constants
 
 
@@ -37,6 +43,25 @@ class TestAppUtils(unittest.TestCase):
         for i in [12, "temp", lambda x: x + 1, ("a", "b")]:
             self.assertRaises(TypeError, get_functions_list, i)
 
+    def test_components_modules(self) -> None:
+        # make sure that in any module file has the relevant main method
+        self.assertTrue(os.path.exists(components.COMPONENTS_CURRENT_DIR))
+        # run on the configured dir path
+        for file in os.listdir(components.COMPONENTS_CURRENT_DIR):
+            # filter only relevant python files
+            if file.endswith(settings.PY_FILE_EXTENSION) and file not in components.IRRELEVANT_FILES:
 
-if __name__ == '__main__':
-    unittest.main()
+                filename_without_extension = file[:file.index(settings.PY_FILE_EXTENSION)]
+                # current nodule
+                curr_module = import_module(
+                    "{current_dir}.{filename}".format(
+                        current_dir=".".join(components.COMPONENTS_CURRENT_DIR.split("//")),
+                        filename=filename_without_extension
+                    )
+                )
+                # the checking itself
+                self.assertIn(
+                    settings.MAIN_DASH_METHOD_PREFIX + filename_without_extension,
+                    get_functions_list(curr_module)
+                )
+

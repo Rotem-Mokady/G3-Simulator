@@ -93,7 +93,9 @@ def add_modules_components(foo: FunctionType) -> Any:
                     raise ImportError(f"Can not import {file} from {components.COMPONENTS_CURRENT_DIR}")
                 # get the components method from the current module
                 try:
-                    curr_method: FunctionType = curr_module.__dict__[f"components_{filename_without_extension}"]
+                    curr_method: FunctionType = curr_module.__dict__[
+                        f"{settings.MAIN_DASH_METHOD_PREFIX}{filename_without_extension}"
+                    ]
                 except KeyError:
                     raise ImportError(
                         "No components function in '{file}'. Methods list:\n{functions_list}".format(

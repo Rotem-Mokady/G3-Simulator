@@ -52,6 +52,3 @@ class TestCalc(unittest.TestCase):
                 len(results)
             )
 
-
-if __name__ == '__main__':
-    unittest.main()

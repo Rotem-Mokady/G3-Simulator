@@ -216,6 +216,3 @@ class TestCalc(unittest.TestCase):
             math.pi * radius**2 * velocity
         )
 
-
-if __name__ == '__main__':
-    unittest.main()
