@@ -2,6 +2,13 @@ from dash import (
     Dash,
     html,
 )
+from logging import (
+    FileHandler,
+    WARNING,
+)
+from flask import request
+from pprint import pprint
+
 from configs.dash import (
     styles,
     titles,
@@ -21,4 +28,8 @@ def create_app() -> Dash:
     app = Dash()
     app.title = titles.TAB_WINDOW_NAME
     app.layout = html.Div(style=styles.BACKGROUND_STYLE, children=tags.FINAL_LAYOUT)
+
+    file_handler = FileHandler("logs//error_log.txt")
+    file_handler.setLevel(WARNING)
+    app.server.logger.addHandler(file_handler)
     return app
