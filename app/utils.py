@@ -22,6 +22,14 @@ from configs.dash import (
     components,
     settings,
 )
+from configs.secrets.auth_constants import (
+    LOGIN_MANAGER,
+    UsersApp,
+)
+from configs.secrets.db_constants import (
+    SQLiteDB,
+    Users,
+)
 
 
 def get_functions_list(file_module: ModuleType) -> Union[List, None]:
@@ -109,3 +117,13 @@ def add_modules_components(foo: FunctionType) -> Any:
     return wrapper
 
 
+def create_users_table() -> None:
+    """
+    The function creates the permissions sql table for the authentication table.
+    """
+    Users.metadata.create_all(SQLiteDB.ENGINE)
+
+
+@LOGIN_MANAGER.user_loader
+def load_user(user_id):
+    return UsersApp.query.get(int(user_id))
