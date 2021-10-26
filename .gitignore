@@ -2,6 +2,5 @@
 \.pytest_cache
 .idea
 __init__.py
-secrets.py
-configs\secrets.py
+configs/secrets.py
 
