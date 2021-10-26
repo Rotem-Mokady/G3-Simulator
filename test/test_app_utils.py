@@ -3,10 +3,10 @@ from typing import List
 import os
 from importlib import import_module
 # local modules
-from app.utils import get_functions_list
+from app.utils.extractions import get_functions_list
 from calculations import (
     vel_calc,
-    utils,
+    helpers,
     friction_calc,
 )
 from app.modules import tdh_by_flow
@@ -26,7 +26,7 @@ class TestAppUtils(unittest.TestCase):
         # examine results for modules with functions
         good_inputs_to_results = {
             vel_calc: ['get_flow'],
-            utils: ['get_reynold_number', 'millimeters2meters', 'diameter2radius'],
+            helpers: ['get_reynold_number', 'millimeters2meters', 'diameter2radius'],
             friction_calc: ['get_dynamic_friction_coefficient'],
             tdh_by_flow: ['calculate_tdh_by_flow', 'components_tdh_by_flow'],
         }
@@ -61,7 +61,7 @@ class TestAppUtils(unittest.TestCase):
                 )
                 # the checking itself
                 self.assertIn(
-                    settings.MAIN_DASH_METHOD_PREFIX + filename_without_extension,
+                    components.MAIN_DASH_METHOD_PREFIX + filename_without_extension,
                     get_functions_list(curr_module)
                 )
 

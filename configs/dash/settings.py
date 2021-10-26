@@ -1,7 +1,9 @@
-HOST = "0.0.0.0"
+HOST = "127.0.0.1"
 PORT = 80
 THREADED = True
+SSL_CONTENT = "adhoc"
+
+TEMPLATES_FOLDER_PATH = "app/templates"
+STATIC_FOLDER_PATH = "app/static"
 
 PY_FILE_EXTENSION = ".py"
-MAIN_DASH_METHOD_PREFIX = "components_"
-

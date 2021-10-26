@@ -20,7 +20,7 @@ from calculations.vel_calc import (
     get_flow,
 )
 from calculations.resistence_calc import get_tdh
-from calculations.utils import (
+from calculations.helpers import (
     diameter2radius,
     millimeters2meters,
 )

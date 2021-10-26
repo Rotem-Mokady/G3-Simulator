@@ -1,24 +1,28 @@
-from dash import (
-    Dash,
-    html,
-)
-from configs.dash import (
-    styles,
-    titles,
-    tags,
-    components,
-)
-from app.utils import add_modules_components
+import os
+from flask import Flask
+from oauthlib.oauth2 import WebApplicationClient
+
+from configs import secrets
+from configs.dash import settings
+from app.user_auth import add_login_manager
+from app.utils.sql_helpers import create_table_in_schema
+from app.routes import add_index, add_dash, add_login, add_callback
 
 
-@add_modules_components
-def create_app() -> Dash:
-    f"""
-    Project's tests will run based on the configuration.
-    :return: An app object with the basic design and the modules components from the modules folder 
-    ({components.COMPONENTS_CURRENT_DIR}).
-    """
-    app = Dash()
-    app.title = titles.TAB_WINDOW_NAME
-    app.layout = html.Div(style=styles.BACKGROUND_STYLE, children=tags.FINAL_LAYOUT)
+def create_app() -> Flask:
+    app: Flask = Flask(__name__,
+                       template_folder=settings.TEMPLATES_FOLDER_PATH,
+                       static_folder=settings.STATIC_FOLDER_PATH)
+    app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(24)
+    add_login_manager(app)
+    add_dash(app)
+    with app.app_context():
+        create_table_in_schema()
+    client = WebApplicationClient(secrets.GOOGLE_CLIENT_ID)
+
+    add_index(app)
+    add_login(app, client)
+    add_callback(app, client)
+
     return app
+

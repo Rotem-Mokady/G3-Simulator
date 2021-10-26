@@ -6,4 +6,5 @@ app = create_app()
 
 
 if __name__ == '__main__':
-    app.run_server(host=settings.HOST, port=settings.PORT, threaded=settings.THREADED)
+    app.run(host=settings.HOST, port=settings.PORT, threaded=settings.THREADED, ssl_context=settings.SSL_CONTENT)
+

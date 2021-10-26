@@ -12,7 +12,7 @@ from calculations.vel_calc import (
     get_flow,
 )
 from calculations.area_calc import get_piston_areas_ratio
-from calculations.utils import get_reynold_number
+from calculations.helpers import get_reynold_number
 from calculations.friction_calc import get_dynamic_friction_coefficient
 from calculations.height_calc import get_height_per_length
 from calculations.resistence_calc import get_tdh
