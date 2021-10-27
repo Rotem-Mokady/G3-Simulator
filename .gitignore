@@ -3,5 +3,6 @@
 .idea
 __init__.py
 secrets.py
+.env
 
 
